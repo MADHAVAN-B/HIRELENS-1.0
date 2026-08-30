@@ -12,9 +12,12 @@ from app.database import Base, get_db
 from app.main import app
 from app.models import User
 
-engine = create_engine("sqlite:///./test.db", connect_args={"check_same_thread": False})
+engine = create_engine(
+    "sqlite:///./test.db",
+    connect_args={"check_same_thread": False},
+    execution_options={"schema_translate_map": {"app": None}},
+)
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
 
 Base.metadata.create_all(bind=engine)
 
